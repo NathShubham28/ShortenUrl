@@ -4,12 +4,13 @@ const shortId = require('shortid')
 const createShortUrl = async (req, res) => {
     const urlExits = await ShortUrl.findOne({ full: req.body.fullUrl })
     if(urlExits){
-        res.redirect('/')
+        // res.redirect('/')
+        res.status(409).json({error: "Already url exists."})
     }
     else {
         const url = await ShortUrl.create({ full: req.body.fullUrl, short: shortId.generate() })
         if(url) {
-            res.redirect('/')
+            // res.redirect('/')
             // res.status(200).json({urlBody: url})
         }
         else {
@@ -23,7 +24,7 @@ const getAllUrl = async (req, res) => {
     const shortUrls = await ShortUrl.find()
     console.log("res" + shortUrls)
     // res.render('index', { shortUrls: shortUrls })
-    res.sendStatus(200).json(shortUrls)
+    res.status(200).json(shortUrls)
 };
 
 const redirectUrl = async (req, res) => {
