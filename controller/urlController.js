@@ -19,8 +19,9 @@ const createShortUrl = async (req, res) => {
 };
 
 const getAllUrl = async (req, res) => {
+    console.log("Coming")
     const shortUrls = await ShortUrl.find()
-    console.log(shortUrls)
+    console.log("res" + shortUrls)
     res.render('index', { shortUrls: shortUrls })
 };
 
