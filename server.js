@@ -4,9 +4,10 @@ const app = express()
 const dbConnect = require("./config/dbConnect")
 const PORT = process.env.PORT || 4000
 const authRouter = require("./routes/authRoutes")
+const cors = require('cors');
 
 dbConnect();
-
+app.use(cors())
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({extended: false}))
 // app.get('/', (req, res) => {
