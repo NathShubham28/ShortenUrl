@@ -4,6 +4,7 @@ const app = express()
 const dbConnect = require("./config/dbConnect")
 const PORT = process.env.PORT || 4000
 const authRouter = require("./routes/authRoutes")
+
 dbConnect();
 
 app.set('view engine', 'ejs')

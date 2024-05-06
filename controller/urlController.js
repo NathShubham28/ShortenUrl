@@ -22,7 +22,8 @@ const getAllUrl = async (req, res) => {
     console.log("Coming")
     const shortUrls = await ShortUrl.find()
     console.log("res" + shortUrls)
-    res.render('index', { shortUrls: shortUrls })
+    // res.render('index', { shortUrls: shortUrls })
+    res.sendStatus(200).json(shortUrls)
 };
 
 const redirectUrl = async (req, res) => {
