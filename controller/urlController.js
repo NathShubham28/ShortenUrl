@@ -2,16 +2,17 @@ const ShortUrl = require('../models/urlModel')
 const shortId = require('shortid')
 
 const createShortUrl = async (req, res) => {
-    const urlExits = await ShortUrl.findOne({ full: req.body.fullUrl })
+    console.log()
+    const urlExits = await ShortUrl.findOne({ full: req.headers.full })
     if(urlExits){
         // res.redirect('/')
         res.status(409).json({error: "Already url exists."})
     }
     else {
-        const url = await ShortUrl.create({ full: req.body.fullUrl, short: shortId.generate() })
+        const url = await ShortUrl.create({ full: req.headers.full, short: shortId.generate() })
         if(url) {
             // res.redirect('/')
-            // res.status(200).json({urlBody: url})
+            res.status(200).json({urlBody: url})
         }
         else {
             res.status(400).json({error: "Something went wrong."})
@@ -35,7 +36,8 @@ const redirectUrl = async (req, res) => {
     shortUrl.clicks++
     shortUrl.save()
     console.log(shortUrl)
-    res.redirect(shortUrl.full)
+    res.status(200).json(shortUrl)
+    // res.redirect(shortUrl.full)
 }
 
 module.exports = {createShortUrl, getAllUrl, redirectUrl};
